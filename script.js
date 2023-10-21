@@ -1,15 +1,23 @@
-function add(firstNumber, secondNumber) {
-  return firstNumber + secondNumber;
+function add(a, b) {
+  return a + b;
 }
 
-function subtract(firstNumber, secondNumber) {
-  return firstNumber - secondNumber;
+function subtract(a, b) {
+  return a - b;
 }
 
-function multiply(firstNumber, secondNumber) {
-  return firstNumber * secondNumber;
+function multiply(a, b) {
+  return a * b;
 }
 
-function divide(firstNumber, secondNumber) {
-  return firstNumber / secondNumber;
+function divide(a, b) {
+  return a / b;
+}
+
+let firstNumber;
+let secondNumber;
+let operator;
+
+function operate(firstNumber, operator, secondNumber) {
+  return operator(firstNumber, secondNumber);
 }

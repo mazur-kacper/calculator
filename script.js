@@ -50,7 +50,9 @@ const comaButton = document.querySelector("#coma-button");
 function digitButtons() {
   numberButtons.forEach(function (button) {
     button.addEventListener("click", (event) => {
-      if (operator && firstNumber != "") {
+      console.log(firstNumber);
+      console.log(operator);
+      if (operator && firstNumber != "" && displayValue == "") {
         displayScreen.textContent = "";
       }
       if (displayScreen.textContent === "0") {

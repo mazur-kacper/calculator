@@ -12,6 +12,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
   if (b === 0) {
+    console.log("lol");
     return (displayScreen.textContent = "ERROR");
   } else {
     return a / b;
@@ -145,20 +146,25 @@ function calculate() {
       storedNumbers.push(secondNumber);
       console.log(storedNumbers);
       console.log(firstNumber, operator, secondNumber);
-      result = parseFloat(
-        operate(storedNumbers[0], operator, storedNumbers[1]).toString()
-      );
-      fixedResult = result.toFixed(8);
-      fixedResult = fixedResult.toString();
-      fixedResult = parseFloat(fixedResult);
-      displayScreen.textContent = fixedResult.toString();
-      console.log(storedNumbers);
-      storedNumbers = [];
-      storedNumbers.push(Number(result));
-      console.log(storedNumbers);
-      operator = "";
-      number = "";
-      displayValue = "";
+      result = operate(storedNumbers[0], operator, storedNumbers[1]);
+      if (result === "ERROR") {
+        displayScreen.textContent = "ERROR";
+      } else {
+        result = parseFloat(
+          operate(storedNumbers[0], operator, storedNumbers[1]).toString()
+        );
+        fixedResult = result.toFixed(8);
+        fixedResult = fixedResult.toString();
+        fixedResult = parseFloat(fixedResult);
+        displayScreen.textContent = fixedResult.toString();
+        console.log(storedNumbers);
+        storedNumbers = [];
+        storedNumbers.push(Number(result));
+        console.log(storedNumbers);
+        operator = "";
+        number = "";
+        displayValue = "";
+      }
     }
   });
 }

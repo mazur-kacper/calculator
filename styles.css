@@ -10,11 +10,29 @@ body {
 
 #calculator-body {
   width: 300px;
-  height: 400px;
+  height: 420px;
   border: 2px solid black;
 }
 
 #buttons button {
   width: 60px;
   height: 60px;
+  margin: 0px;
+  padding: 0px;
+}
+
+#buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin: 10px;
+}
+
+#buttons #ac-button {
+  width: 130px;
+}
+#buttons #backspace-button {
+  width: 130px;
 }

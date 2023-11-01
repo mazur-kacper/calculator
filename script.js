@@ -44,11 +44,12 @@ const operatorButtons = document.querySelectorAll(".operator-button");
 const equalsButton = document.querySelector("#equals-button");
 const clearButton = document.querySelector("#ac-button");
 const backSpaceButton = document.querySelector("#backspace-button");
+const comaButton = document.querySelector("#coma-button");
 
 function digitButtons() {
   numberButtons.forEach(function (button) {
     button.addEventListener("click", (event) => {
-      if (hasBeenPerformed) {
+      if (operator && firstNumber != "") {
         displayScreen.textContent = "";
       }
       if (displayScreen.textContent === "0") {
@@ -57,8 +58,8 @@ function digitButtons() {
         displayScreen.textContent += button.textContent;
       }
       displayValue += button.textContent;
+      console.log(displayValue);
     });
-    hasBeenPerformed = false;
   });
 }
 
@@ -82,27 +83,44 @@ function backspace() {
 function utilizeOperator() {
   operatorButtons.forEach(function (button) {
     button.addEventListener("click", (event) => {
-      hasBeenPerformed = true;
+      displayScreen.textContent += " " + button.textContent;
+
       if (storedNumbers.length === 0) {
-        number = getInput();
-        operator = String(button.id);
-        storedNumbers.push(number);
-        number = "";
-        console.log(storedNumbers);
+        operator = button.id;
+
+        firstNumber = getInput();
+        storedNumbers.push(firstNumber);
+        displayValue = "";
+      } else if (operator === "") {
+        operator = button.id;
       } else if (storedNumbers.length === 1) {
-        number = getInput();
-        storedNumbers.push(Number(number));
-        result = String(operate(storedNumbers[0], operator, storedNumbers[1]));
-        displayScreen.textContent = `${result} `;
+        secondNumber = getInput();
+        console.log(firstNumber, operator, secondNumber);
+
+        res = operate(firstNumber, operator, secondNumber);
+        console.log(firstNumber, operator, secondNumber);
+        console.log("--");
+        console.log(res);
         storedNumbers = [];
-        storedNumbers.push(Number(result));
-        operator = String(button.id);
-        number = "";
+        storedNumbers[0] = res;
+        firstNumber = storedNumbers[0];
+        operator = button.id;
         console.log(storedNumbers);
+        displayScreen.textContent = res + " " + button.textContent;
+        secondNumber = "";
+        displayValue = "";
       }
-      displayValue = "";
-      number = "";
     });
+  });
+}
+
+function coma() {
+  comaButton.addEventListener("click", (event) => {
+    if (displayValue.includes(".")) {
+    } else {
+      displayValue = displayValue + ".";
+      displayScreen.textContent += ".";
+    }
   });
 }
 
@@ -117,21 +135,31 @@ function clear() {
 
 function calculate() {
   equalsButton.addEventListener("click", (event) => {
-    number = getInput();
-    storedNumbers.push(number);
-    result = String(operate(storedNumbers[0], operator, storedNumbers[1]));
-    displayScreen.textContent = `${result} `;
-    storedNumbers = [];
-    storedNumbers.push(Number(result));
-    number = "";
-    displayValue = "";
     console.log(storedNumbers);
-
-    //   .toFixed(7)
-    //   .replace(/\.?0+$/, "");
-    // displayValue = Number(result)
-    //   .toFixed(7)
-    //   .replace(/\.?0+$/, "");
+    if (
+      storedNumbers[0] === undefined ||
+      (storedNumbers[1] === undefined && operator === "")
+    ) {
+    } else if (storedNumbers.length === 1) {
+      secondNumber = getInput();
+      storedNumbers.push(secondNumber);
+      console.log(storedNumbers);
+      console.log(firstNumber, operator, secondNumber);
+      result = parseFloat(
+        operate(storedNumbers[0], operator, storedNumbers[1]).toString()
+      );
+      fixedResult = result.toFixed(8);
+      fixedResult = fixedResult.toString();
+      fixedResult = parseFloat(fixedResult);
+      displayScreen.textContent = fixedResult.toString();
+      console.log(storedNumbers);
+      storedNumbers = [];
+      storedNumbers.push(Number(result));
+      console.log(storedNumbers);
+      operator = "";
+      number = "";
+      displayValue = "";
+    }
   });
 }
 
@@ -141,6 +169,34 @@ function calculator() {
   utilizeOperator();
   calculate();
   backspace();
+  coma();
 }
 
 calculator();
+
+// w event listenerze operatora
+
+// if (storedNumbers.length === 0) {
+//   number = getInput();
+//   operator = String(button.id);
+//   storedNumbers.push(number);
+//   number = "";
+//   displayScreen.textContent += " " + button.textContent;
+// } else if (storedNumbers.length === 1 && number.length > 0) {
+//   number = getInput();
+//   storedNumbers.push(Number(number));
+//   result = String(operate(storedNumbers[0], operator, storedNumbers[1]));
+//   displayScreen.textContent = `${result} `;
+//   storedNumbers = [];
+//   storedNumbers.push(Number(result));
+//   operator = String(button.id);
+//   number = "";
+//   console.log(storedNumbers);
+//   displayScreen.textContent += button.textContent;
+//   hasBeenPerformed = true;
+// } else {
+// }
+// displayValue = "";
+// number = "";
+// hasBeenPerformed = true;
+// console.log(storedNumbers);

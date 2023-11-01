@@ -76,7 +76,10 @@ function backspace() {
         displayScreen.textContent = "0";
       }
     } else {
+      displayValue = displayValue.toString().slice(0, -1);
+
       displayScreen.textContent = displayScreen.textContent.slice(0, -1);
+      console.log(displayValue);
     }
   });
 }

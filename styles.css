@@ -41,15 +41,6 @@ body {
   justify-content: center;
 }
 
-#buttons button {
-  width: 60px;
-  height: 60px;
-  margin: 0px;
-  padding: 0px;
-  border: solid black 2px;
-  border-radius: 50%;
-}
-
 #buttons {
   display: flex;
   flex-wrap: wrap;
@@ -72,4 +63,18 @@ body {
 
 .operator-button {
   background-color: rgb(171, 156, 156);
+}
+
+#buttons button {
+  width: 60px;
+  height: 60px;
+  margin: 0px;
+  padding: 0px;
+  border: solid black 2px;
+  border-radius: 50%;
+  transition: background-color 0.1s;
+}
+
+#buttons button:active {
+  background-color: #1e6bc9;
 }

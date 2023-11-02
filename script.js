@@ -72,13 +72,16 @@ function getInput() {
 
 function backspace() {
   backSpaceButton.addEventListener("click", (event) => {
+    console.log(displayValue);
     if (displayScreen.textContent.length === 1) {
       if (displayScreen.textContent === "0") {
       } else {
         displayScreen.textContent = "0";
       }
     } else {
+      console.log(displayValue + "===");
       displayValue = displayValue.toString().slice(0, -1);
+      console.log(displayValue + "///");
 
       displayScreen.textContent = displayScreen.textContent.slice(0, -1);
       console.log(displayValue);
@@ -89,6 +92,7 @@ function backspace() {
 function utilizeOperator() {
   operatorButtons.forEach(function (button) {
     button.addEventListener("click", (event) => {
+      console.log(displayValue + "---");
       displayScreen.textContent += " " + button.textContent;
 
       if (storedNumbers.length === 0) {
@@ -101,17 +105,13 @@ function utilizeOperator() {
         operator = button.id;
       } else if (storedNumbers.length === 1) {
         secondNumber = getInput();
-        console.log(firstNumber, operator, secondNumber);
 
         res = operate(firstNumber, operator, secondNumber);
-        console.log(firstNumber, operator, secondNumber);
-        console.log("--");
-        console.log(res);
+
         storedNumbers = [];
         storedNumbers[0] = res;
         firstNumber = storedNumbers[0];
         operator = button.id;
-        console.log(storedNumbers);
         displayScreen.textContent = res + " " + button.textContent;
         secondNumber = "";
         displayValue = "";
@@ -141,7 +141,6 @@ function clear() {
 
 function calculate() {
   equalsButton.addEventListener("click", (event) => {
-    console.log(storedNumbers);
     if (
       storedNumbers[0] === undefined ||
       (storedNumbers[1] === undefined && operator === "")
@@ -149,8 +148,7 @@ function calculate() {
     } else if (storedNumbers.length === 1) {
       secondNumber = getInput();
       storedNumbers.push(secondNumber);
-      console.log(storedNumbers);
-      console.log(firstNumber, operator, secondNumber);
+
       result = operate(storedNumbers[0], operator, storedNumbers[1]);
       if (result === "ERROR") {
         displayScreen.textContent = "ERROR";
@@ -162,13 +160,11 @@ function calculate() {
         fixedResult = fixedResult.toString();
         fixedResult = parseFloat(fixedResult);
         displayScreen.textContent = fixedResult.toString();
-        console.log(storedNumbers);
         storedNumbers = [];
         storedNumbers.push(Number(result));
-        console.log(storedNumbers);
         operator = "";
         number = "";
-        displayValue = "";
+        // displayValue = "";
       }
     }
   });

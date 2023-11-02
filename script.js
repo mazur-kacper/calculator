@@ -50,8 +50,6 @@ const comaButton = document.querySelector("#coma-button");
 function digitButtons() {
   numberButtons.forEach(function (button) {
     button.addEventListener("click", (event) => {
-      console.log(firstNumber);
-      console.log(operator);
       if (operator && firstNumber != "" && displayValue == "") {
         displayScreen.textContent = "";
       }
@@ -61,7 +59,6 @@ function digitButtons() {
         displayScreen.textContent += button.textContent;
       }
       displayValue += button.textContent;
-      console.log(displayValue);
     });
   });
 }
@@ -92,7 +89,6 @@ function backspace() {
 function utilizeOperator() {
   operatorButtons.forEach(function (button) {
     button.addEventListener("click", (event) => {
-      console.log(displayValue + "---");
       displayScreen.textContent += " " + button.textContent;
 
       if (storedNumbers.length === 0) {
@@ -164,7 +160,8 @@ function calculate() {
         storedNumbers.push(Number(result));
         operator = "";
         number = "";
-        // displayValue = "";
+        displayValue = "";
+        console.log(firstNumber, operator, secondNumber);
       }
     }
   });
